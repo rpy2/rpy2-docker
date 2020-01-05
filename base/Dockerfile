@@ -1,0 +1,24 @@
+ARG UBUNTU_RELEASE=19.04
+FROM ubuntu:$UBUNTU_RELEASE
+
+MAINTAINER Laurent Gautier <lgautier@gmail.com>
+
+ARG DEBIAN_FRONTEND=noninteractive
+ARG CRAN_MIRROR=https://cloud.r-project.org
+ARG CRAN_MIRROR_TAG=-cran35
+
+ARG RPY2_VERSION=RELEASE_3_2_4
+ARG RPY2_CFFI_MODE=BOTH
+
+COPY install_apt.sh /opt/
+COPY install_rpacks.sh /opt/
+COPY install_pip.sh /opt/
+
+RUN \
+  sh /opt/install_apt.sh && \
+  sh /opt/install_rpacks.sh && \
+  sh /opt/install_pip.sh
+
+RUN \
+  python3 -m pip --no-cache-dir install https://github.com/rpy2/rpy2/archive/"${RPY2_VERSION}".zip && \
+  rm -rf /root/.cache
