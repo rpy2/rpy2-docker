@@ -2,7 +2,7 @@ This helps build a base rpy2 ubuntu image.
 
 
 ```bash
-docker build -t rpy2/base-ubuntu:master-default
+docker build -t rpy2/base-ubuntu:master-default .
 ```
 
 This will try to build rpy2's master branch, but a specific
