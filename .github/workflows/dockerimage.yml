@@ -23,7 +23,7 @@ jobs:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
       run: |
-        echo "${DOCKER_USERNAME}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
+        echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
         docker push rpy2/base-ubuntu:$(date +%s)-19.04
     - name: Build jupyter image
       run: |
@@ -31,4 +31,11 @@ jobs:
           --tag rpy2/jupyter-ubuntu:$(date +%s)-19.04 \
           --build-arg RPY2_VERSION="${RPY2_VERSION}" \
           --build-arg UBUNTU_RELEASE="${UBUNTU_RELEASE}"   
+    - name: Push jupyter image
+      env:
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
+      run: |
+        echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
+        docker push rpy2/jupyter-ubuntu:$(date +%s)-19.04
  
