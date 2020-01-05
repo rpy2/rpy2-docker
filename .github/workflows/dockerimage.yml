@@ -2,21 +2,26 @@ name: Docker Image CI
 
 on: [push]
 
+
 jobs:
 
   build:
-
+    env: 
+      UBUNTU_RELEASE: 19.04
+      RPY2_VERSION: master
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v1
-    - name: Build the Docker image base
-      env:
-        UBUNTU_RELEASE: 19.04
-        RPY2_VERSION: master
+    - name: Build base image
       run: |
         docker build base \
           --tag rpy2/base-ubuntu:$(date +%s)-19.04 \
           --build-arg RPY2_VERSION="${RPY2_VERSION}" \
           --build-arg UBUNTU_RELEASE="${UBUNTU_RELEASE}"
+    - name: Build jupyter image
+      run: |
+        docker build jupyter \
+          --tag rpy2/jupyter-ubuntu:$(date +%s)-19.04 \
+          --build-arg RPY2_VERSION="${RPY2_VERSION}" \
+          --build-arg UBUNTU_RELEASE="${UBUNTU_RELEASE}"   
  
