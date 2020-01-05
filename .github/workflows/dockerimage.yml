@@ -17,6 +17,6 @@ jobs:
       run: |
         docker build base/ \
           --tag rpy2/base-ubuntu:$(date +%s)-19.04 \
-          --build-arg RPY2_VERSION="${RPY2_VERSION} \
+          --build-arg RPY2_VERSION="${RPY2_VERSION}" \
           --build-arg UBUNTU_RELEASE="${UBUNTU_RELEASE}"
  
