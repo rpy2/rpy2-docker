@@ -15,7 +15,8 @@ jobs:
         UBUNTU_RELEASE: 19.04
         RPY2_VERSION: master
       run: |
-        docker build base/ \
+        cd base && \
+        docker build . \
           --tag rpy2/base-ubuntu:$(date +%s)-19.04 \
           --build-arg RPY2_VERSION="${RPY2_VERSION}" \
           --build-arg UBUNTU_RELEASE="${UBUNTU_RELEASE}"
