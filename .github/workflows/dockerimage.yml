@@ -2,44 +2,47 @@ name: Docker Image CI
 
 on: [push]
 
-
 jobs:
 
   build:
+    strategy:
+      matrix:
+      ubuntu: [18.04, 19.10]
     env: 
-      UBUNTU_RELEASE: 19.04
       RPY2_VERSION: master
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
+      with:
+        ubuntu_release: ${{ matrix.ubuntu }}
     - name: Build base image
       run: |
         docker build base \
-          --tag rpy2/base-ubuntu:"${RPY2_VERSION}"-"${UBUNTU_RELEASE}" \
+          --tag rpy2/base-ubuntu:"${RPY2_VERSION}"-"${ubuntu_release}" \
           --build-arg RPY2_VERSION="${RPY2_VERSION}" \
-          --build-arg UBUNTU_RELEASE="${UBUNTU_RELEASE}"
+          --build-arg UBUNTU_RELEASE="${ubuntu_release}"
     - name: Push base image
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
       run: |
         echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
-        docker tag rpy2/base-ubuntu:"${RPY2_VERSION}"-"${UBUNTU_RELEASE}" \
-          rpy2/base-ubuntu:"${RPY2_VERSION}"-"${UBUNTU_RELEASE}"
-        docker push rpy2/base-ubuntu:"${RPY2_VERSION}"-"${UBUNTU_RELEASE}"
+        IMAGE_TAG=rpy2/base-ubuntu:"${RPY2_VERSION}"-"${ubuntu_release}"
+        docker tag "${IMAGE_TAG}" "${IMAGE_TAG}"
+        docker push "${IMAGE_TAG}"
     - name: Build jupyter image
       run: |
         docker build jupyter \
-          --tag rpy2/jupyter-ubuntu:"${RPY2_VERSION}"-"${UBUNTU_RELEASE}" \
+          --tag rpy2/jupyter-ubuntu:"${RPY2_VERSION}"-"${ubuntu_release}" \
           --build-arg RPY2_VERSION="${RPY2_VERSION}" \
-          --build-arg UBUNTU_RELEASE="${UBUNTU_RELEASE}"   
+          --build-arg UBUNTU_RELEASE="${ubuntu_release}"   
     - name: Push jupyter image
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
       run: |
         echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
-        docker tag rpy2/jupyter-ubuntu:"${RPY2_VERSION}"-"${UBUNTU_RELEASE}" \
-          rpy2/jupyter-ubuntu:"${RPY2_VERSION}"-"${UBUNTU_RELEASE}"
-        docker push rpy2/jupyter-ubuntu:"${RPY2_VERSION}"-"${UBUNTU_RELEASE}"
+        IMAGE_TAG=rpy2/jupyter-ubuntu:"${RPY2_VERSION}"-"${ubuntu_release}"
+        docker tag "${IMAGE_TAG}" "${IMAGE_TAG}"
+        docker push "${IMAGE_TAG}"
  
