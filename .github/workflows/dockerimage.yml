@@ -7,7 +7,7 @@ jobs:
   build:
     strategy:
       matrix:
-        ubuntu_release: [18.04, 19.10]
+        ubuntu_release: ["18.04", "19.10"]
     env: 
       RPY2_VERSION: master
     runs-on: ubuntu-latest
