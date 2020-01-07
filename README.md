@@ -5,4 +5,4 @@ Running rpy2 in Docker containers
 
 Documentation for the image is in the corresponding directory:
 - [base](base/README.md)
-- [jupyer](jupyter/README.md)
+- [jupyter](jupyter/README.md)
