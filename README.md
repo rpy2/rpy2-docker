@@ -11,3 +11,5 @@ Documentation for the image is in the corresponding directory:
 Image builds are pushed to dockerhub:
 - https://hub.docker.com/repository/docker/rpy2/base-ubuntu
 - https://hub.docker.com/repository/docker/rpy2/jupyter-ubuntu
+
+The `jupyter-ubuntu` images are intended to work my [mybinder](https://mybinder.org).
