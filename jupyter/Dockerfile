@@ -33,7 +33,7 @@ RUN \
   && wget --quiet https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini \
       -P /usr/local/bin/ \
   && chmod +x /usr/local/bin/tini \
-  && sudo -u "${NB_USER}" sh /opt/setup_jupyter.sh
+  && sh /opt/setup_jupyter.sh
 
 USER $NB_USER
 

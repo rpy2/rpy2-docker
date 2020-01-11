@@ -6,3 +6,4 @@ echo "c.NotebookApp.ip = '0.0.0.0'" >> /home/"${NB_USER}"/.jupyter/jupyter_noteb
 python3 -m venv /home/"${NB_USER}"/py3_env
 echo "source /home/${NB_USER}/py3_env/bin/activate" >> /home/"${NB_USER}"/.bashrc
 echo "echo Python virtual environment activated. Write \"deactivate\" to exit it." >> /home/"${NB_USER}"/.bash
+chown -R "${NB_USER}" /home/"{NB_USER}"/
