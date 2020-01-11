@@ -15,9 +15,14 @@ COPY install_rpacks.sh /opt/
 COPY install_pip.sh /opt/
 
 RUN \
-  sh /opt/install_apt.sh && \
-  sh /opt/install_rpacks.sh && \
-  sh /opt/install_pip.sh
+  sh /opt/install_apt.sh \
+  && sh /opt/install_rpacks.sh \
+  && sh /opt/install_pip.sh \
+  && rm -rf /tmp/* \
+  && apt-get remove --purge -y $BUILDDEPS \
+  && apt-get autoremove -y \
+  && apt-get autoclean -y \
+  && rm -rf /var/lib/apt/lists/*
 
 RUN \
   python3 -m pip --no-cache-dir install https://github.com/rpy2/rpy2/archive/"${RPY2_VERSION}".zip && \
