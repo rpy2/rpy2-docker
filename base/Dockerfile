@@ -4,7 +4,7 @@ FROM ubuntu:$UBUNTU_RELEASE
 MAINTAINER Laurent Gautier <lgautier@gmail.com>
 
 ARG DEBIAN_FRONTEND=noninteractive
-ENV CRAN_MIRROR=https://cloud.r-project.org
+ENV CRAN_MIRROR=https://cloud.r-project.org \
     CRAN_MIRROR_TAG=-cran35
 
 ARG RPY2_VERSION=RELEASE_3_2_4
