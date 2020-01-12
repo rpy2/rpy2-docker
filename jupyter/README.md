@@ -14,7 +14,7 @@ build time (again, see the documentation for the base image).
 ```bash
 RPY2_VERSION=3.2.4
 UBUNTU_RELEASE=19.10
-docker build -t rpy2/base-ubuntu:"${RPY2_VERSION}"-default \
+docker build -t rpy2/jupyter-ubuntu:"${RPY2_VERSION}"-default \
   --build-arg RPY2_VERSION="${RPY2_VERSION}" \
   --build-arg UBUNTU_RELEASE="${UBUNTU_RELEASE}" .
 ```
