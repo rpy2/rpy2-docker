@@ -33,11 +33,9 @@ RUN \
   && wget --quiet https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini \
       -P /usr/local/bin/ \
   && chmod +x /usr/local/bin/tini \
-  && sh /opt/setup_jupyter.sh
-
-# Add Jupyter script(s) emerging as ad hoc interface
-RUN \
-  git clone --depth=1 https://github.com/jupyter/docker-stacks.git /tmp/docker-stacks\
+  && sh /opt/setup_jupyter.sh \
+  && echo "Add Jupyter scripts emerging as ad hoc interface" \
+  && git clone --depth=1 https://github.com/jupyter/docker-stacks.git /tmp/docker-stacks \
   && cd /tmp/docker-stacks/base-notebook \
   && cp start.sh /usr/local/bin/ \
   && cp start-notebook.sh /usr/local/bin/ \
