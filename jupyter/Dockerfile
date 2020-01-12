@@ -37,6 +37,7 @@ RUN \
 
 USER $NB_USER
 
+ENV HOME /home/${NB_USER}
 WORKDIR ${HOME}
 
 EXPOSE 8888
@@ -56,6 +57,3 @@ RUN \
   && chown -R "${NB_USER}":users /etc/jupyter/ \
   && cd ../../ \
   && rm -rf docker-stacks
-
-ENV HOME /home/${NB_USER}
-USER $NB_USER
