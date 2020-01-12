@@ -43,4 +43,19 @@ jobs:
         IMAGE_TAG=rpy2/jupyter-ubuntu:"${RPY2_VERSION}"-"${{ matrix.ubuntu_release }}"
         docker tag "${IMAGE_TAG}" "${IMAGE_TAG}"
         docker push "${IMAGE_TAG}"
+    - name: Build jupyter_ds image
+      run: |
+        docker build jupyter_ds \
+          --tag rpy2/jupyter_ds-ubuntu:"${RPY2_VERSION}"-"${{ matrix.ubuntu_release }}" \
+          --build-arg RPY2_VERSION="${RPY2_VERSION}" \
+          --build-arg UBUNTU_RELEASE="${{ matrix.ubuntu_release }}"
+    - name: Push jupyter_ds image
+      env:
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
+      run: |
+        echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
+        IMAGE_TAG=rpy2/jupyter_ds-ubuntu:"${RPY2_VERSION}"-"${{ matrix.ubuntu_release }}"
+        docker tag "${IMAGE_TAG}" "${IMAGE_TAG}"
+        docker push "${IMAGE_TAG}"
  
