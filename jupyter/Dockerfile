@@ -35,6 +35,17 @@ RUN \
   && chmod +x /usr/local/bin/tini \
   && sh /opt/setup_jupyter.sh
 
+# Add Jupyter script(s) emerging as ad hoc interface
+RUN \
+  git clone --depth=1 https://github.com/jupyter/docker-stacks.git /tmp/docker-stacks\
+  && cd docker-stacks/base-notebook \
+  && cp start.sh /usr/local/bin/ \
+  && cp start-notebook.sh /usr/local/bin/ \
+  && cp start-singleuser.sh /usr/local/bin/ \
+  && mkdir -p /etc/jupyter/ \
+  && cp jupyter_notebook_config.py /etc/jupyter/ \
+  && rm -rf /tmp/docker-stacks
+
 USER $NB_USER
 
 ENV HOME /home/${NB_USER}
@@ -44,16 +55,3 @@ EXPOSE 8888
 
 ENTRYPOINT ["/usr/local/bin/tini", "--"]
 CMD ["start-notebook.sh"]
-
-# Add Jupyter script(s) emerging as ad hoc interface
-RUN \
-  git clone --depth=1 https://github.com/jupyter/docker-stacks.git \
-  && cd docker-stacks/base-notebook \
-  && cp start.sh /usr/local/bin/ \
-  && cp start-notebook.sh /usr/local/bin/ \
-  && cp start-singleuser.sh /usr/local/bin/ \
-  && mkdir -p /etc/jupyter/ \
-  && cp jupyter_notebook_config.py /etc/jupyter/ \
-  && chown -R "${NB_USER}":users /etc/jupyter/ \
-  && cd ../../ \
-  && rm -rf docker-stacks
