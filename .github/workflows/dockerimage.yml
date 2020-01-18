@@ -10,6 +10,7 @@ jobs:
         ubuntu_release: ["18.04", "19.10"]
     env: 
       RPY2_VERSION: master
+      LATEST_UBUNTU: "19.10"
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
@@ -28,6 +29,10 @@ jobs:
         IMAGE_TAG=rpy2/base-ubuntu:"${RPY2_VERSION}"-"${{ matrix.ubuntu_release }}"
         docker tag "${IMAGE_TAG}" "${IMAGE_TAG}"
         docker push "${IMAGE_TAG}"
+        if [ "${{ matrix.ubuntu_release }}" == "${LATEST_UBUNTU}" ]; then
+          docker tag "${IMAGE_TAG}" rpy2/base-ubuntu:latest
+          docker push rpy2/base-ubuntu:latest
+        fi
     - name: Build jupyter image
       run: |
         docker build jupyter \
@@ -43,6 +48,10 @@ jobs:
         IMAGE_TAG=rpy2/jupyter-ubuntu:"${RPY2_VERSION}"-"${{ matrix.ubuntu_release }}"
         docker tag "${IMAGE_TAG}" "${IMAGE_TAG}"
         docker push "${IMAGE_TAG}"
+        if [ "${{ matrix.ubuntu_release }}" == "${LATEST_UBUNTU}" ]; then
+          docker tag "${IMAGE_TAG}" rpy2/jupyter-ubuntu:latest
+          docker push rpy2/jupyter-ubuntu:latest
+        fi
     - name: Build jupyter_ds image
       run: |
         docker build jupyter_ds \
@@ -58,4 +67,8 @@ jobs:
         IMAGE_TAG=rpy2/jupyter_ds-ubuntu:"${RPY2_VERSION}"-"${{ matrix.ubuntu_release }}"
         docker tag "${IMAGE_TAG}" "${IMAGE_TAG}"
         docker push "${IMAGE_TAG}"
+        if [ "${{ matrix.ubuntu_release }}" == "${LATEST_UBUNTU}" ]; then
+          docker tag "${IMAGE_TAG}" rpy2/jupyter_ds-ubuntu:latest
+          docker push rpy2/jupyter_ds-ubuntu:latest
+        fi
  
