@@ -1,9 +1,21 @@
 This helps build a jupyter-based data science environment for R + Python.
 This image will include more experimental and external dependency than
-`rpy2/jupyter-ubuntu`.
+`rpy2/jupyter-ubuntu`, such as:
+
+- IDE-like autocompletion for R (https://github.com/krassowski/jupyterlab-lsp)
 
 The naming convention for the base image is the one used in the documentation for the
 base rpy2 image (see its [README](../base/README.md)).
+
+## Run (using automated build)
+
+To run the latest (most recent rpy2/ubuntu of the builds), simply do
+
+```bash
+docker run -p 8888:8888 rpy2/jupyter_ds-ubuntu
+```
+
+## Build
 
 ```bash
 docker build -t rpy2/jupyter_ds-ubuntu:master-default .
