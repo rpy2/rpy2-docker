@@ -15,7 +15,7 @@ RUN \
   && apt-get install -y ${BUILDDEPS} \
   && python3 -m pip install --pre jupyter-lsp \
   && jupyter labextension install @krassowski/jupyterlab-lsp \
-  && python3 -m pip install python-language-server[all] \
+  && python3 -m pip install bash-language-server python-language-server[all] \
   && R -e 'install.packages("languageserver")' \
   && rm -rf /tmp/* \
   && apt-get remove --purge -y ${BUILDDEPS} \
