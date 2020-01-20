@@ -9,19 +9,10 @@ ARG DEBIAN_FRONTEND=noninteractive
 USER root
 WORKDIR /root
 
+COPY install_all_jupyter_ds.sh /opt/
+
 RUN \
-  BUILDDEPS="libssl-dev" \
-  && apt-get update -qq \
-  && apt-get install -y ${BUILDDEPS} \
-  && python3 -m pip install --pre jupyter-lsp \
-  && jupyter labextension install @krassowski/jupyterlab-lsp \
-  && python3 -m pip install bash-language-server python-language-server[all] \
-  && R -e 'install.packages("languageserver")' \
-  && rm -rf /tmp/* \
-  && apt-get remove --purge -y ${BUILDDEPS} \
-  && apt-get autoremove -y \
-  && apt-get autoclean -y \
-  && rm -rf /var/lib/apt/lists/*
+  bash /opt/install_all_jupyter_ds.sh
 
 WORKDIR /home/"${NB_USER}"
 
