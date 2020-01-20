@@ -5,13 +5,15 @@ UBUNTU_RELEASE=$(lsb_release --release --short)
 
 # We rely on the apt packages from the Arrow project
 # but they are a little behind ubuntu releases.
-[ ! "${UBUNTU_RELEASE}" > "19.04" ]
+[ ! "${UBUNTU_RELEASE}" \> "19.04" ]
 ARROW_AVAILABLE=$?
 
 apt-get update -qq
 
 if (( ARROW_AVAILABLE == 0 )); then
 
+  echo "Dependencies for Apache arrow should be available. Adding them."
+  
   BUILDDEPS="${BUILDDEPS} \
     libarrow-dev \
     libarrow-glib-dev \
