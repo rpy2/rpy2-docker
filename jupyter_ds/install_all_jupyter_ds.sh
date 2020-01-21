@@ -47,6 +47,10 @@ python3 -m pip install \
 R -e 'install.packages("languageserver")'
 
 if (( ARROW_AVAILABLE == 0 )); then
+    # Python ships with its own copy of the C libraries, but R needs system ones.
+    apt-get install \
+      libparquet-glib15 libparquet15
+      libplasma-glib15 libplasma15
     python3 -m pip install 'pyarrow==0.15.*'
     R -e 'install.packages("arrow")'
 fi
