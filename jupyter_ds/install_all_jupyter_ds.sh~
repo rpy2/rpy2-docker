@@ -1,19 +1,7 @@
 
 BUILDDEPS="libssl-dev"
 
-UBUNTU_RELEASE=$(lsb_release --release --short)
-
-# We rely on the apt packages from the Arrow project
-# but they are a little behind ubuntu releases.
-[ ! "${UBUNTU_RELEASE}" \> "19.04" ]
-ARROW_AVAILABLE=$?
-
-apt-get update -qq
-
-if (( ARROW_AVAILABLE == 0 )); then
-
-  echo "Dependencies for Apache arrow should be available. Adding them."
-  
+if [ "${UBUNTU_RELEASE}" == "19.04" ]; then
   BUILDDEPS="${BUILDDEPS} \
     libarrow-dev \
     libarrow-glib-dev \
@@ -23,7 +11,9 @@ if (( ARROW_AVAILABLE == 0 )); then
     libgandiva-dev \
     libgandiva-glib-dev \
     libparquet-dev \
-    libparquet-glib-dev"
+    libparquet-glib-dev"; \
+
+  apt-get update -qq
 
   wget -O /usr/share/keyrings/apache-arrow-keyring.gpg https://dl.bintray.com/apache/arrow/$(lsb_release --id --short | tr 'A-Z' 'a-z')/apache-arrow-keyring.gpg
   tee /etc/apt/sources.list.d/apache-arrow.list <<APT_LINE
@@ -46,12 +36,8 @@ python3 -m pip install \
 
 R -e 'install.packages("languageserver")'
 
-if (( ARROW_AVAILABLE == 0 )); then
-    # Python ships with its own copy of the C libraries, but R needs system ones.
-    apt-get install \
-      libparquet-glib15 libparquet15
-    libplasma-glib15 libplasma15
-    python3 -m pip install --no-binary 'pyarrow==0.15.*'
+if [ "${UBUNTU_RELEASE}" == "19.04" ]; then
+    python3 -m pip install 'pyarrow==0.15.*'
     R -e 'install.packages("arrow")'
 fi
 
