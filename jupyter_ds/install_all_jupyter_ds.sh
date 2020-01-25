@@ -47,7 +47,7 @@ python3 -m pip install \
 R -e 'install.packages("languageserver")'
 
 if (( ARROW_AVAILABLE == 0 )); then
-    python3 -m pip install 'pyarrow==0.15.*'
+    python3 -m pip install --no-binary 'pyarrow==0.15.*'
     R -e 'install.packages("arrow")'
 fi
 
