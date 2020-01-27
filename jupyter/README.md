@@ -12,7 +12,7 @@ As with the base image, the ubuntu release and rpy2 version can be specified at
 build time (again, see the documentation for the base image).
 
 ```bash
-RPY2_VERSION=3.2.4
+RPY2_VERSION=3.2.5
 UBUNTU_RELEASE=19.10
 docker build -t rpy2/jupyter-ubuntu:"${RPY2_VERSION}"-default \
   --build-arg RPY2_VERSION="${RPY2_VERSION}" \
