@@ -37,7 +37,7 @@ RUN \
   && echo "Add Jupyter scripts emerging as ad hoc interface" \
   && git clone --depth=1 https://github.com/jupyter/docker-stacks.git /tmp/docker-stacks \
   && cd /tmp/docker-stacks/base-notebook \
-  && cp start.sh /usr/local/bin/ \
+  && sed -e 's/joyvan/'"${NB_USER}"'/g' start.sh > /usr/local/bin/start.sh \
   && cp start-notebook.sh /usr/local/bin/ \
   && cp start-singleuser.sh /usr/local/bin/ \
   && mkdir -p /etc/jupyter/ \
