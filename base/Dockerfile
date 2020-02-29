@@ -7,7 +7,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ENV CRAN_MIRROR=https://cloud.r-project.org \
     CRAN_MIRROR_TAG=-cran35
 
-ARG RPY2_VERSION=RELEASE_3_2_4
+ARG RPY2_VERSION=RELEASE_3_2_5
 ARG RPY2_CFFI_MODE=BOTH
 
 COPY install_apt.sh /opt/
