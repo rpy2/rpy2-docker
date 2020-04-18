@@ -1,4 +1,4 @@
-ARG UBUNTU_RELEASE=19.04
+ARG UBUNTU_RELEASE=19.10
 FROM ubuntu:$UBUNTU_RELEASE
 
 MAINTAINER Laurent Gautier <lgautier@gmail.com>
@@ -7,7 +7,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 ENV CRAN_MIRROR=https://cloud.r-project.org \
     CRAN_MIRROR_TAG=-cran35
 
-ARG RPY2_VERSION=RELEASE_3_2_4
+ARG RPY2_VERSION=RELEASE_3_3_1
 ARG RPY2_CFFI_MODE=BOTH
 
 COPY install_apt.sh /opt/

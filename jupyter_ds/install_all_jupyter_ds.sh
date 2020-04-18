@@ -1,16 +1,13 @@
-
-BUILDDEPS="libssl-dev"
-
 UBUNTU_RELEASE=$(lsb_release --release --short)
 
 # We rely on the apt packages from the Arrow project
 # but they are a little behind ubuntu releases.
-[ ! "${UBUNTU_RELEASE}" \> "19.04" ]
+[ "${UBUNTU_RELEASE}" \> "19.04" ]
 ARROW_AVAILABLE=$?
 
 apt-get update -qq
 
-if (( ARROW_AVAILABLE == 0 )); then
+if (( ARROW_AVAILABLE == 1 )); then
 
   echo "Dependencies for Apache arrow should be available. Adding them."
   
@@ -25,10 +22,12 @@ if (( ARROW_AVAILABLE == 0 )); then
     libparquet-dev \
     libparquet-glib-dev"
 
-  wget -O /usr/share/keyrings/apache-arrow-keyring.gpg https://dl.bintray.com/apache/arrow/$(lsb_release --id --short | tr 'A-Z' 'a-z')/apache-arrow-keyring.gpg
+  APACHEARROW_URL="https://dl.bintray.com/apache/arrow/$(lsb_release --id --short \| tr 'A-Z' 'a-z')"
+  wget -O /usr/share/keyrings/apache-arrow-keyring.gpg \
+       ${APACHEARROW_URL}/apache-arrow-keyring.gpg
   tee /etc/apt/sources.list.d/apache-arrow.list <<APT_LINE
-deb [arch=amd64 signed-by=/usr/share/keyrings/apache-arrow-keyring.gpg] https://dl.bintray.com/apache/arrow/$(lsb_release --id --short | tr 'A-Z' 'a-z')/ $(lsb_release --codename --short) main
-deb-src [signed-by=/usr/share/keyrings/apache-arrow-keyring.gpg] https://dl.bintray.com/apache/arrow/$(lsb_release --id --short | tr 'A-Z' 'a-z')/ $(lsb_release --codename --short) main
+deb [arch=amd64 signed-by=/usr/share/keyrings/apache-arrow-keyring.gpg] ${APACHEARROW_URL}/ $(lsb_release --codename --short) main
+deb-src [signed-by=/usr/share/keyrings/apache-arrow-keyring.gpg] ${APACHEARROW_URL}/ $(lsb_release --codename --short) main
 APT_LINE
   apt-get update -qq
 
@@ -36,14 +35,12 @@ fi
 
 apt-get install -y ${BUILDDEPS}
 
+# jupyterlab-lsp: better UI for R code cells
 python3 -m pip install --pre jupyter-lsp
-
 jupyter labextension install @krassowski/jupyterlab-lsp
-
 python3 -m pip install \
          bash-language-server \
 	 python-language-server[all]
-
 R -e 'install.packages("languageserver")'
 
 if (( ARROW_AVAILABLE == 0 )); then
@@ -52,7 +49,7 @@ if (( ARROW_AVAILABLE == 0 )); then
     apt-get install \
       libparquet-glib15 libparquet15 \
       libplasma-glib15 libplasma15
-    python3 -m pip install --no-binary 'pyarrow==0.15.*'
+    python3 -m pip install --no-binary 'pyarrow==0.16.*'
     R -e 'install.packages("arrow")'
 fi
 
