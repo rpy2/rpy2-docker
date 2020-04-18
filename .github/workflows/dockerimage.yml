@@ -1,6 +1,11 @@
 name: Docker Image CI
 
-on: [push]
+on:
+  push:
+    branches: 
+      - master
+  schedule:
+    - cron: '* * 1 * *'
 
 jobs:
 
@@ -8,6 +13,7 @@ jobs:
     strategy:
       matrix:
         ubuntu_release: ["18.04", "19.10"]
+        rpy2_version: ["master", "v3.3.x"]
     env: 
       RPY2_VERSION: master
       LATEST_UBUNTU: "19.10"
@@ -17,8 +23,8 @@ jobs:
     - name: Build base image
       run: |
         docker build base \
-          --tag rpy2/base-ubuntu:"${RPY2_VERSION}"-"${{ matrix.ubuntu_release }}" \
-          --build-arg RPY2_VERSION="${RPY2_VERSION}" \
+          --tag rpy2/base-ubuntu:"${{ matrix.rpy2_version }}"-"${{ matrix.ubuntu_release }}" \
+          --build-arg RPY2_VERSION="${{ matrix.rpy2_version }}" \
           --build-arg UBUNTU_RELEASE="${{ matrix.ubuntu_release }}"
     - name: Push base image
       env:
@@ -26,7 +32,7 @@ jobs:
         DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
       run: |
         echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
-        IMAGE_TAG=rpy2/base-ubuntu:"${RPY2_VERSION}"-"${{ matrix.ubuntu_release }}"
+        IMAGE_TAG=rpy2/base-ubuntu:"${{ matrix.rpy2_version }}"-"${{ matrix.ubuntu_release }}"
         docker tag "${IMAGE_TAG}" "${IMAGE_TAG}"
         docker push "${IMAGE_TAG}"
         if [ "${{ matrix.ubuntu_release }}" == "${LATEST_UBUNTU}" ]; then
@@ -36,8 +42,8 @@ jobs:
     - name: Build jupyter image
       run: |
         docker build jupyter \
-          --tag rpy2/jupyter-ubuntu:"${RPY2_VERSION}"-"${{ matrix.ubuntu_release }}" \
-          --build-arg RPY2_VERSION="${RPY2_VERSION}" \
+          --tag rpy2/jupyter-ubuntu:"${{ matrix.rpy2_version }}"-"${{ matrix.ubuntu_release }}" \
+          --build-arg RPY2_VERSION="${{ matrix.rpy2_version }}" \
           --build-arg UBUNTU_RELEASE="${{ matrix.ubuntu_release }}"
     - name: Push jupyter image
       env:
@@ -45,7 +51,7 @@ jobs:
         DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
       run: |
         echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
-        IMAGE_TAG=rpy2/jupyter-ubuntu:"${RPY2_VERSION}"-"${{ matrix.ubuntu_release }}"
+        IMAGE_TAG=rpy2/jupyter-ubuntu:"${{ matrix.rpy2_version }}"-"${{ matrix.ubuntu_release }}"
         docker tag "${IMAGE_TAG}" "${IMAGE_TAG}"
         docker push "${IMAGE_TAG}"
         if [ "${{ matrix.ubuntu_release }}" == "${LATEST_UBUNTU}" ]; then
@@ -55,8 +61,8 @@ jobs:
     - name: Build jupyter_ds image
       run: |
         docker build jupyter_ds \
-          --tag rpy2/jupyter_ds-ubuntu:"${RPY2_VERSION}"-"${{ matrix.ubuntu_release }}" \
-          --build-arg RPY2_VERSION="${RPY2_VERSION}" \
+          --tag rpy2/jupyter_ds-ubuntu:"${{ matrix.rpy2_version }}"-"${{ matrix.ubuntu_release }}" \
+          --build-arg RPY2_VERSION="${{ matrix.rpy2_version }}" \
           --build-arg UBUNTU_RELEASE="${{ matrix.ubuntu_release }}"
     - name: Push jupyter_ds image
       env:
@@ -64,7 +70,7 @@ jobs:
         DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
       run: |
         echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
-        IMAGE_TAG=rpy2/jupyter_ds-ubuntu:"${RPY2_VERSION}"-"${{ matrix.ubuntu_release }}"
+        IMAGE_TAG=rpy2/jupyter_ds-ubuntu:"${{ matrix.rpy2_version }}"-"${{ matrix.ubuntu_release }}"
         docker tag "${IMAGE_TAG}" "${IMAGE_TAG}"
         docker push "${IMAGE_TAG}"
         if [ "${{ matrix.ubuntu_release }}" == "${LATEST_UBUNTU}" ]; then
