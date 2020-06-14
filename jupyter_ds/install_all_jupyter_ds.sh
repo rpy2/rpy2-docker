@@ -49,7 +49,7 @@ if (( ARROW_AVAILABLE == 0 )); then
     apt-get install \
       libparquet-glib15 libparquet15 \
       libplasma-glib15 libplasma15
-    python3 -m pip install --no-binary 'pyarrow==0.16.*'
+    python3 -m pip install --no-binary 'pyarrow==0.17.*'
     R -e 'install.packages("arrow")'
 fi
 

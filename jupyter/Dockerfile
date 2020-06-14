@@ -1,4 +1,4 @@
-ARG UBUNTU_RELEASE=19.10
+ARG UBUNTU_RELEASE=20.04
 ARG RPY2_VERSION=master
 FROM rpy2/base-ubuntu:$RPY2_VERSION-$UBUNTU_RELEASE
 
@@ -6,7 +6,7 @@ MAINTAINER Laurent Gautier <lgautier@gmail.com>
 
 ARG DEBIAN_FRONTEND=noninteractive
 ENV JUPYTER_ENABLE_LAB=1
-ARG TINI_VERSION=v0.15.0
+ARG TINI_VERSION=v0.19.0
 ENV SHELL=/bin/bash \
     NB_USER=jupyteruser \
     NB_UID=1000
@@ -20,11 +20,11 @@ RUN \
   apt-get update -qq \
   && apt-get install -y curl \
   && apt-get remove -y --purge nodejs npm \
-  && curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash - \
-  && sudo apt-get install -y nodejs \
+  && curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash - \
+  && apt-get install -y nodejs \
   && wget -O - https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
   && apt-get update -qq \
-  && sudo apt-get install -y yarn \
+  && apt-get install -y yarn \
   && npm install -g configurable-http-proxy \
   && rm -rf /var/lib/apt/lists/* \
   && useradd -m -s /bin/bash -N -u "${NB_UID}" "${NB_USER}" \
