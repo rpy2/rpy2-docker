@@ -5,6 +5,7 @@ echo "broom\n\
       dplyr\n\
       hexbin\n\
       ggplot2\n\
+      lazyeval\n\
       lme4\n\
       RSQLite\n\
       tidyr\n\
