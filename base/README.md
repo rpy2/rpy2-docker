@@ -16,11 +16,11 @@ docker build -t rpy2/base-ubuntu:"${RPY2_VERSION}"-default --build-arg RPY2_VERS
 ```
 
 The default ubuntu release is, at the time of writing, `20.04`
-but a different release can be specified at build time.
+but a different release can be specified at build time (e.g., `20.10`).
 
 For example:
 
 ```bash
-UBUNTU_RELEASE=18.04
+UBUNTU_RELEASE=20.04
 docker build -t rpy2/base-ubuntu:master-"${UBUNTU-RELEASE}" --build-arg UBUNTU_RELEASE=$UBUNTU_RELEASE .
 ```

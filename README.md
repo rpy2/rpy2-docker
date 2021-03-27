@@ -3,11 +3,11 @@ Running rpy2 in Docker containers
 
 ![](https://github.com/rpy2/rpy2-docker/workflows/Docker%20Image%20CI/badge.svg)
 
-Documentation for the image is in the corresponding directory:
+Documentation for each image is in its corresponding directory:
 - [base](base/README.md) : the base image for rpy2
 - [jupyter](jupyter/README.md) : jupyter added to the base image
 - [jupyter_ds](jupyter_ds/README.md) : a jupyter with added extension for data science use
-
+Instruction about releases (there might be images for several ubuntu or rpy2 releases can be found there)
 
 Image builds are pushed to dockerhub:
 - https://hub.docker.com/repository/docker/rpy2/base-ubuntu
