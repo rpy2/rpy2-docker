@@ -7,7 +7,6 @@ Documentation for each image is in its corresponding directory:
 - [base](base/README.md) : the base image for rpy2
 - [jupyter](jupyter/README.md) : jupyter added to the base image
 - [jupyter_ds](jupyter_ds/README.md) : a jupyter with added extension for data science use
-Instruction about releases (there might be images for several ubuntu or rpy2 releases can be found there)
 
 Image builds are pushed to dockerhub:
 - https://hub.docker.com/repository/docker/rpy2/base-ubuntu
