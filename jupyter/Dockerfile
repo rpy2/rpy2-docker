@@ -6,7 +6,7 @@ MAINTAINER Laurent Gautier <lgautier@gmail.com>
 
 ARG DEBIAN_FRONTEND=noninteractive
 ENV JUPYTER_ENABLE_LAB=1
-ARG TINI_VERSION=v0.19.0
+ARG TINI_VERSION=v3.0.1
 ENV SHELL=/bin/bash \
     NB_USER=jupyteruser \
     NB_UID=1000
@@ -20,7 +20,7 @@ RUN \
   apt-get update -qq \
   && apt-get install -y curl \
   && apt-get remove -y --purge nodejs npm \
-  && curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash - \
+  && curl -sL https://deb.nodesource.com/setup_17.x | sudo -E bash - \
   && apt-get install -y nodejs \
   && wget -O - https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
   && apt-get update -qq \
