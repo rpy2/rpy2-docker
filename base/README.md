@@ -8,7 +8,7 @@ docker build -t rpy2/base-ubuntu:master-default .
 This will try to build rpy2's master branch, but a specific
 branch/tag can be specified at build time.
 
-For example, to build an image with rpy2 release 3.2.4
+For example, to build an image with rpy2 release 3.4.6
 
 ```bash
 RPY2_VERSION=3.2.5
