@@ -26,10 +26,12 @@ apt-get install -y ${BUILDDEPS}
 
 # jupyterlab-lsp: better UI for R code cells
 python3 -m pip install --pre jupyter-lsp
-jupyter labextension install @krassowski/jupyterlab-lsp
+jupyter labextension install --no-build @krassowski/jupyterlab-lsp
+jupyer lab build --dev-build=False --minimize=True
 python3 -m pip install \
-         bash-language-server \
-	 python-language-server[all]
+        bash-language-server \
+	python-language-server[all]
+
 R -e 'install.packages("languageserver")'
 
 R -e 'install.packages(c("assertthat", "cpp11", "tidyselect", "vectrs", "R6", "purr", bit64"))'
