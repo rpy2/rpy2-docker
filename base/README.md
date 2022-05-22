@@ -11,7 +11,7 @@ branch/tag can be specified at build time.
 For example, to build an image with rpy2 release 3.5.2
 
 ```bash
-RPY2_VERSION=3.5.2
+RPY2_VERSION=RELEASE_3.5.2
 docker build -t rpy2/base-ubuntu:"${RPY2_VERSION}"-default --build-arg RPY2_VERSION="${RPY2_VERSION}" .
 ```
 
