@@ -1,13 +1,13 @@
-ARG UBUNTU_RELEASE=20.04
+ARG UBUNTU_RELEASE=22.04
 FROM ubuntu:$UBUNTU_RELEASE
 
 MAINTAINER Laurent Gautier <lgautier@gmail.com>
 
 ARG DEBIAN_FRONTEND=noninteractive
 ENV CRAN_MIRROR=https://cloud.r-project.org \
-    CRAN_MIRROR_TAG=-cran35
+    CRAN_MIRROR_TAG=-cran40
 
-ARG RPY2_VERSION=RELEASE_3_5_6
+ARG RPY2_VERSION=RELEASE_3_5_2
 ARG RPY2_CFFI_MODE=BOTH
 
 COPY install_apt.sh /opt/
