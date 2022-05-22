@@ -12,8 +12,8 @@ jobs:
   build:
     strategy:
       matrix:
-        ubuntu_release: ["20.04", "21.10"]
-        rpy2_version: ["master", "v3.4.x"]
+        ubuntu_release: ["22.04", "21.10"]
+        rpy2_version: ["master", "v3.5.x"]
     env: 
       RPY2_VERSION: master
       LATEST_UBUNTU: "20.04"
