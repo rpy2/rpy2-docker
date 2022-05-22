@@ -17,6 +17,7 @@ apt-get install -y \
 	mercurial \
 	libcairo-dev \
 	libedit-dev \
+	libnlopt-dev \
 	libxml2-dev \
 	python3 \
 	python3-pip \
