@@ -22,4 +22,4 @@ jobs:
         docker build -f manylinux2014_Dockerfile \
           --build-arg YUM_BASE_IMAGE="${{ matrix.base_image }}" \
           --build-arg R_VERSION="${{ matrix.r-version }}" \
-	  cibuildwheel
+          cibuildwheel
