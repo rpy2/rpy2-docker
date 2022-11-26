@@ -2,14 +2,13 @@ name: Docker image for cibuildwheel
 
 on:
   push:
-   paths:
+    paths:
       - 'cibuildwheel/**'
       - '.github/workflows/image_cibuildwheel.yml'
     branches: 
       - master
 
 jobs:
-
   build:
     strategy:
       matrix:
