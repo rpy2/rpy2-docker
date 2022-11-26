@@ -3,7 +3,7 @@ apt-get upgrade --yes
 apt install -y --no-install-recommends \
     software-properties-common \
     dirmngr \
-    lsb-release
+    lsb-release \
     wget
 wget -qO- "${CRAN_MIRROR}"/bin/linux/ubuntu/marutter_pubkey.asc \
     | tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc
