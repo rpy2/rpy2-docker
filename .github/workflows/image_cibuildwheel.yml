@@ -19,7 +19,7 @@ jobs:
     - uses: actions/checkout@v3
     - name: Build base yum image from ${{ matrix.base_image }}
       run: |
-        docker build -f manylinux2014_Dockerfile \
+        docker build --file cibuildwheel/manylinux2014_Dockerfile \
           --build-arg YUM_BASE_IMAGE="${{ matrix.base_image }}" \
           --build-arg R_VERSION="${{ matrix.r-version }}" \
           cibuildwheel
