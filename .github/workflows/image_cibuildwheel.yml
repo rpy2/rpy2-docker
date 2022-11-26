@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - name: Build base yum image from ${{ base_image }}
+    - name: Build base yum image from ${{ matrix.base_image }}
       run: |
         docker build -f manylinux2014_Dockerfile cibuildwheel \
           --build-arg YUM_BASE_IMAGE="${{ matrix.base_image }}" \
