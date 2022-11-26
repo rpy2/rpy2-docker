@@ -34,7 +34,7 @@ jobs:
       name: Build and push base yum image from ${{ matrix.base_image }}
       uses: docker/build-push-action@v3
       with:
-        context: "{{defaultcontext}}:cibuildwheel"
+        context: "cibuildwheel"
         push: true
         tags: rpy2/${{ matrix.base_image }}
         file: "cibuildwheel/manylinux2014_Dockerfile"
