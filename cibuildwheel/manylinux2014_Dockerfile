@@ -1,3 +1,4 @@
+ARG YUM_BASE_IMAGE=quay.io/pypa/manylinux2014_x86_64
 FROM $YUM_BASE_IMAGE
 
 ARG R_VERSION=4.2.2
