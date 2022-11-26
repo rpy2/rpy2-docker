@@ -68,7 +68,6 @@ jobs:
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
-			 
       run: |
         echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
         IMAGE_TAG=rpy2/jupyter_ds-ubuntu:"${{ matrix.rpy2_version }}"-"${{ matrix.ubuntu_release }}"
