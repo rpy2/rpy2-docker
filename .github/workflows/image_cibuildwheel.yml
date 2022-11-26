@@ -8,6 +8,10 @@ on:
     branches: 
       - master
 
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
 jobs:
   build:
     strategy:
@@ -15,11 +19,24 @@ jobs:
         base_image: ["quay.io/pypa/manylinux2014_x86_64"]
         r-version: ["4.2.2"]
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
     steps:
-    - uses: actions/checkout@v3
-    - name: Build base yum image from ${{ matrix.base_image }}
-      run: |
-        docker build --file cibuildwheel/manylinux2014_Dockerfile \
-          --build-arg YUM_BASE_IMAGE="${{ matrix.base_image }}" \
-          --build-arg R_VERSION="${{ matrix.r-version }}" \
-          cibuildwheel
+    -
+      name: Check out the repos
+      uses: actions/checkout@v3
+    -
+      name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+    -
+      name: Build and push base yum image from ${{ matrix.base_image }}
+      uses: docker/build-push-action@v3
+      with:
+        context: "{{defaultcontext}}:cibuildwheel"
+        push: true
+        tags: rpy2/${{ matrix.base_image }}
+        file: "cibuildwheel/manylinux2014_Dockerfile"
+        build-arg: ["YUM_BASE_IMAGE=${{ matrix.base_image }}",
+                    "R_VERSION=${{ matrix.r-version }}"]
