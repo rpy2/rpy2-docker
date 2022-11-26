@@ -29,5 +29,5 @@ RUN \
 
 RUN \
   source /opt/python_env/bin/activate \
-  && python3 -m pip --no-cache-dir install https://github.com/rpy2/rpy2/archive/refs/tags/"${RPY2_VERSION}".zip \
+  && python3 -m pip --no-cache-dir install https://github.com/rpy2/rpy2/archive/refs/tags/"$RPY2_VERSION".zip \
   && rm -rf /root/.cache
