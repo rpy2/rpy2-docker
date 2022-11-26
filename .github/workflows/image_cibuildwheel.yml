@@ -38,5 +38,6 @@ jobs:
         push: true
         tags: rpy2/${{ matrix.base_image }}
         file: "cibuildwheel/manylinux2014_Dockerfile"
-        build-arg: ["YUM_BASE_IMAGE=${{ matrix.base_image }}",
-                    "R_VERSION=${{ matrix.r-version }}"]
+        build-arg: |
+          YUM_BASE_IMAGE=${{ matrix.base_image }}
+          R_VERSION=${{ matrix.r-version }}
