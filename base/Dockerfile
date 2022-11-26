@@ -1,5 +1,6 @@
 ARG UBUNTU_RELEASE=22.04
 FROM ubuntu:$UBUNTU_RELEASE
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 MAINTAINER Laurent Gautier <lgautier@gmail.com>
 
@@ -16,6 +17,8 @@ COPY install_pip.sh /opt/
 
 RUN \
   sh /opt/install_apt.sh \
+  && python3 -m venv /opt/python3_env \
+  && source /opt/python3_env/bin/activate \
   && sh /opt/install_rpacks.sh \
   && sh /opt/install_pip.sh \
   && rm -rf /tmp/* \
@@ -25,5 +28,6 @@ RUN \
   && rm -rf /var/lib/apt/lists/*
 
 RUN \
-  python3 -m pip --no-cache-dir install https://github.com/rpy2/rpy2/archive/refs/tags/"${RPY2_VERSION}".zip && \
-  rm -rf /root/.cache
+  source /opt/python_env/bin/activate \
+  && python3 -m pip --no-cache-dir install https://github.com/rpy2/rpy2/archive/refs/tags/"${RPY2_VERSION}".zip \
+  && rm -rf /root/.cache

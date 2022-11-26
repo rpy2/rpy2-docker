@@ -1,4 +1,5 @@
-apt-get update -qq
+apt-get update --yes
+apt-get upgrade --yes
 apt install -y --no-install-recommends \
     software-properties-common \
     dirmngr \
