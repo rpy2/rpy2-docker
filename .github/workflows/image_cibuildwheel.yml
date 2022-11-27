@@ -16,7 +16,7 @@ jobs:
   build:
     strategy:
       matrix:
-        base_image: ["quay.io/pypa/manylinux2014_x86_64"]
+        base_image: ["manylinux2014_x86_64"]
         r-version: ["4.2.2"]
     runs-on: ubuntu-latest
     permissions:
@@ -49,8 +49,8 @@ jobs:
       with:
         context: "cibuildwheel"
         push: ${{ github.event_name != 'pull_request' }}
-        tags: rpy2/${{ matrix.base_image }}
+        tags: rpy2/${{ image_name }}
         file: "cibuildwheel/manylinux2014_Dockerfile"
         build-arg: |
-          YUM_BASE_IMAGE=${{ matrix.base_image }}
+          YUM_BASE_IMAGE=quay.io/pypa/${{ matrix.base_image }}
           R_VERSION=${{ matrix.r-version }}
