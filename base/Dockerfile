@@ -29,6 +29,6 @@ RUN \
 
 RUN \
   source /opt/python3_env/bin/activate \
-  && TAG_OR_HEAD=$( if [ ${RPY2_VERSION} = "master" ]; then echo "heads"; else echo "tags"; fi) \
-  && python3 -m pip --no-cache-dir install https://github.com/rpy2/rpy2/archive/refs/${TAG_OR_HEAD}/${RPY2_VERSION}.zip \
+  && RPY2_PREFIX=$( if [ ${RPY2_VERSION} = "master" ]; then echo ""; else echo "RELEASE_"; fi) \
+  && python3 -m pip --no-cache-dir install git+https://github.com/rpy2/rpy2.git@${RPY2_PREFIX}${RPY2_VERSION} \
   && rm -rf /root/.cache

@@ -27,7 +27,7 @@ jobs:
       run: |
         docker build base \
           --tag rpy2/base-ubuntu:v"${{ matrix.rpy2_version }}"-"${{ matrix.ubuntu_release }}" \
-          --build-arg RPY2_VERSION=RELEASE_"${{ matrix.rpy2_version }}" \
+          --build-arg RPY2_VERSION="${{ matrix.rpy2_version }}" \
           --build-arg UBUNTU_RELEASE="${{ matrix.ubuntu_release }}"
     - name: Push base image
       env:
@@ -46,7 +46,7 @@ jobs:
       run: |
         docker build jupyter \
           --tag rpy2/jupyter-ubuntu:v"${{ matrix.rpy2_version }}"-"${{ matrix.ubuntu_release }}" \
-          --build-arg RPY2_VERSION=RELEASE_"${{ matrix.rpy2_version }}" \
+          --build-arg RPY2_VERSION="${{ matrix.rpy2_version }}" \
           --build-arg UBUNTU_RELEASE="${{ matrix.ubuntu_release }}"
     - name: Push jupyter image
       env:
@@ -65,7 +65,7 @@ jobs:
       run: |
         docker build jupyter_ds \
           --tag rpy2/jupyter_ds-ubuntu:v"${{ matrix.rpy2_version }}"-"${{ matrix.ubuntu_release }}" \
-          --build-arg RPY2_VERSION=RELEASE_"${{ matrix.rpy2_version }}" \
+          --build-arg RPY2_VERSION="${{ matrix.rpy2_version }}" \
           --build-arg UBUNTU_RELEASE="${{ matrix.ubuntu_release }}"
     - name: Push jupyter_ds image
       env:
