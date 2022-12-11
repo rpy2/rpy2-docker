@@ -16,7 +16,7 @@ jobs:
     strategy:
       matrix:
         ubuntu_release: ["22.04", "22.10"]
-        rpy2_version: ["master", "3.5.6"]
+        rpy2_version: ["master", "RELEASE_3_5_6"]
     env: 
       RPY2_VERSION: master
       LATEST_UBUNTU: "22.10"

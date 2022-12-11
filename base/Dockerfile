@@ -29,6 +29,5 @@ RUN \
 
 RUN \
   source /opt/python3_env/bin/activate \
-  && RPY2_PREFIX=$( if [ ${RPY2_VERSION} = "master" ]; then echo ""; else echo "RELEASE_"; fi) \
-  && python3 -m pip --no-cache-dir install git+https://github.com/rpy2/rpy2.git@${RPY2_PREFIX}${RPY2_VERSION} \
+  && python3 -m pip --no-cache-dir install git+https://github.com/rpy2/rpy2.git@${RPY2_VERSION} \
   && rm -rf /root/.cache
