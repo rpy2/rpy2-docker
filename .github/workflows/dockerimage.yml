@@ -35,7 +35,7 @@ jobs:
         DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
       run: |
         echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
-        IMAGE_TAG=rpy2/base-ubuntu:v"${{ matrix.rpy2_version }}"-"${{ matrix.ubuntu_release }}"
+        IMAGE_TAG=rpy2/base-ubuntu:"${{ matrix.rpy2_version }}"-"${{ matrix.ubuntu_release }}"
         docker tag "${IMAGE_TAG}" "${IMAGE_TAG}"
         docker push "${IMAGE_TAG}"
         if [ "${{ matrix.ubuntu_release }}" == "${LATEST_UBUNTU}" ]; then
