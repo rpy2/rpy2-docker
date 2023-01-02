@@ -3,9 +3,11 @@ FROM $YUM_BASE_IMAGE
 
 ARG R_VERSION=4.2.2
 
+# Instructions recommend the following but it appears to be already installed with
+# the base image:
+# yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm \
 RUN \
-  yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm \
-  && yum install -y yum-utils \
+  yum install -y yum-utils \
   && yum-config-manager --enable "rhel-*-optional-rpms" \
   && curl -O https://cdn.rstudio.com/r/centos-7/pkgs/R-"${R_VERSION}"-1-1.x86_64.rpm \
   && yum install -y R-${R_VERSION}-1-1.x86_64.rpm \
