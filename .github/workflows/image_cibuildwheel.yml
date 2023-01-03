@@ -16,8 +16,7 @@ jobs:
   build:
     strategy:
       matrix:
-        wheel_arch: ["x86_64", "i686"]
-        base_image: ["manylinux2014"]
+        base_image: ["manylinux2014_x86_64", "manylinux2014_i686"]
         r-version: ["4.2.2"]
     runs-on: ubuntu-latest
     permissions:
@@ -53,6 +52,5 @@ jobs:
         tags: ${{ env.REGISTRY }}/${{ github.repository }}/${{ matrix.base_image }}:r${{ matrix.r-version }}
         file: "cibuildwheel/manylinux2014_Dockerfile"
         build-args: |
-          ARCH=${{ matrix.wheel_arch }}
           YUM_BASE_IMAGE=quay.io/pypa/${{ matrix.base_image }}
           R_VERSION=${{ matrix.r-version }}

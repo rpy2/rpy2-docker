@@ -1,6 +1,5 @@
-ARG WHEEL_ARCH=x86_64
-ARG YUM_BASE_IMAGE=quay.io/pypa/manylinux2014
-FROM ${YUM_BASE_IMAGE}_${WHEEL_ARCH}
+ARG YUM_BASE_IMAGE=quay.io/pypa/manylinux2014_x86_64
+FROM ${YUM_BASE_IMAGE}
 
 ARG R_VERSION=4.2.2
 
@@ -10,7 +9,7 @@ ARG R_VERSION=4.2.2
 RUN \
   yum install -y yum-utils \
   && yum-config-manager --enable "rhel-*-optional-rpms" \
-  && curl -O https://cdn.rstudio.com/r/centos-7/pkgs/R-${R_VERSION}-1-1.${WHEEL_ARCH}.rpm \
-  && yum install -y R-${R_VERSION}-1-1.${WHEEL_ARCH}.rpm \
+  && curl -O https://cdn.rstudio.com/r/centos-7/pkgs/R-${R_VERSION}-1-1.${PLATFORM}.rpm \
+  && yum install -y R-${R_VERSION}-1-1.$PLATFORM}.rpm \
   && ln -s /opt/R/${R_VERSION}/bin/R /usr/local/bin/R \
   && ln -s /opt/R/${R_VERSION}/bin/Rscript /usr/local/bin/Rscript
