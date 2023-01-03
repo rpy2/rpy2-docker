@@ -53,6 +53,6 @@ jobs:
         tags: ${{ env.REGISTRY }}/${{ github.repository }}/${{ matrix.base_image }}:r${{ matrix.r-version }}
         file: "cibuildwheel/manylinux2014_Dockerfile"
         build-args: |
-	  PLATFORM=${{ matrix.platform }}
+          PLATFORM=${{ matrix.platform }}
           YUM_BASE_IMAGE=quay.io/pypa/${{ matrix.base_image }}
           R_VERSION=${{ matrix.r-version }}
