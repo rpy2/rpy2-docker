@@ -2,6 +2,7 @@ ARG PLATFORM=x86_64
 ARG YUM_BASE_IMAGE=quay.io/pypa/manylinux2014
 FROM ${YUM_BASE_IMAGE}_${PLATFORM}
 
+ARG PLATFORM
 ARG R_VERSION=4.2.2
 
 # Instructions recommend the following but it appears to be already installed with
