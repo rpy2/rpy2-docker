@@ -50,7 +50,7 @@ jobs:
       with:
         context: "cibuildwheel"
         push: ${{ github.event_name != 'pull_request' }}
-        tags: ${{ env.REGISTRY }}/${{ github.repository }}/${{ matrix.base_image }}:r${{ matrix.r-version }}
+        tags: ${{ env.REGISTRY }}/${{ github.repository }}/${{ matrix.base_image }}_${{ matrix.platform }}:r${{ matrix.r-version }}
         file: "cibuildwheel/manylinux2014_Dockerfile"
         build-args: |
           PLATFORM=${{ matrix.platform }}
