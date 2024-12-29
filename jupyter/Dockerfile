@@ -1,4 +1,4 @@
-ARG UBUNTU_RELEASE=22.04
+ARG UBUNTU_RELEASE=24.04
 ARG RPY2_VERSION=master
 FROM rpy2/base-ubuntu:$RPY2_VERSION-$UBUNTU_RELEASE
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -7,7 +7,6 @@ MAINTAINER Laurent Gautier <lgautier@gmail.com>
 
 ARG DEBIAN_FRONTEND=noninteractive
 ENV JUPYTER_ENABLE_LAB=1
-ARG TINI_VERSION=v0.19.0
 ARG NB_USER="jupyteruser"
 ARG NB_UID="1000"
 ARG NB_GID="100"
@@ -35,9 +34,6 @@ RUN \
   && source /opt/python3_env/bin/activate \
   && sh /opt/install_jupyter.sh \
   && echo "${NB_USER}" 'ALL=(ALL) NOPASSWD: /usr/bin/apt-get' >> /etc/sudoers \
-  && wget --quiet https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini \
-      -P /usr/local/bin/ \
-  && chmod +x /usr/local/bin/tini \
   && sh /opt/setup_jupyter.sh \
   && echo "Add Jupyter scripts emerging as ad hoc interface" \
   && git clone --depth=1 https://github.com/jupyter/docker-stacks.git /tmp/docker-stacks \
@@ -65,5 +61,4 @@ WORKDIR ${HOME}
 
 EXPOSE 8888
 
-ENTRYPOINT ["/usr/local/bin/tini", "-g", "--"]
 CMD ["start-notebook.sh"]
