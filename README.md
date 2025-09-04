@@ -1,5 +1,8 @@
 # rpy2-docker
 
+**ARCHIVED: this repository is no longer maintained is now archived.**
+
+
 This repository is a collection of definitions (`Dockerfile` + helper
 files) to build Docker images for rpy2.
 
